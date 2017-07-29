@@ -15,10 +15,10 @@ RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
 
 ENV PATH /opt/conda/bin:$PATH
 
-RUN conda create -q --name py35 python=3.5 && \
-	conda create -q --name py27 python=2.7
-ADD requirement.txt ~/
-RUN pip install -r ~/requirement.txt
+RUN conda create -q -y --name py35 python=3.5 && \
+	conda create -q -y --name py27 python=2.7
+ADD requirement ~/requirement
+# RUN pip install -r ~/requirement.txt
 CMD [ "/bin/bash" ]
 
 
