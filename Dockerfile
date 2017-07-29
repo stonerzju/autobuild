@@ -4,9 +4,10 @@ MAINTAINER Michael Chen "Michael.chen@schneider-electric.com"
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
+# gcc are required to build python package twisted
 RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
     libglib2.0-0 libxext6 libsm6 libxrender1 curl grep sed\
-    git mercurial subversion gcc and-build-dependencies
+    git mercurial subversion gcc
 	
 RUN echo 'export PATH=/opt/conda/bin:$PATH' > /etc/profile.d/conda.sh && \
     wget --quiet https://repo.continuum.io/miniconda/Miniconda3-4.3.14-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -17,7 +18,11 @@ ENV PATH /opt/conda/bin:$PATH
 
 RUN conda create -q -y --name py35 python=3.5 && \
 	conda create -q -y --name py27 python=2.7
+
+# ADD or COPY command need use absolute file path
 ADD requirement /root/requirement
+
+# default shell is /bin/sh, command source require use /bin/bash
 RUN /bin/bash -c "source activate py35; \
 	pip install -r /root/requirement"
 CMD [ "/bin/bash" ]
