@@ -17,8 +17,8 @@ ENV PATH /opt/conda/bin:$PATH
 
 RUN conda create -q -y --name py35 python=3.5 && \
 	conda create -q -y --name py27 python=2.7
-ADD requirement ~/requirement
-# RUN pip install -r ~/requirement.txt
+ADD requirement /root/requirement
+# RUN pip install -r /root/requirement
 CMD [ "/bin/bash" ]
 
 
